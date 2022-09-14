@@ -3,7 +3,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import mysql.connector
- 
+
+#engineでデータベースと接続している
 engine = create_engine(f'mysql+mysqlconnector://codeserver:rH8,KeGa@localhost/test')
  
 # engine = create_engine(
