@@ -1,5 +1,5 @@
 from sqlalchemy.orm.session import Session
-from schemas import ArticleBase, ArticleCreate
+from schemas import ArticleBase, ArticleCreate, StudentBase, StudentCreate
 from db.models import Article
 
 #エンドポイント@get作る必要がある
@@ -17,6 +17,18 @@ def create_article(db: Session, request: ArticleBase):
     db.commit()
     db.refresh(new_article)
     return new_article
+
+def create_student(db: Session, request: StudentBase):
+    new_student = Student(
+        name = request.name,
+        mail = request.mail,
+        passwd = request.passwd,
+        is_display = request.is_display
+    )
+    db.add(new_student)
+    db.commit()
+    db.refresh(new_student)
+    return new_student
 
 # 全ての登録情報を取得
 #articleについて
@@ -56,7 +68,7 @@ def update_article(db: Session, id: int, request: ArticleCreate):
     db.commit()
     return {'message': 'success'}
 
-def update_student(db: Session, id: int, request: ArticleCreate):
+def update_student(db: Session, id: int, request: StudentCreate):
     student = db.query(Student).filter(Student.id == id)
     student.update({
         Student.name: request.name,
