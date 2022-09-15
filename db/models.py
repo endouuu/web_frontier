@@ -1,6 +1,8 @@
 from db.database import Base
 from sqlalchemy import Column
 from sqlalchemy.sql.sqltypes import Boolean, Integer, String
+from sqlalchemy.orm import relationship
+from sqlalchemy.sql.schema import ForeignKey
 
 
 class Article(Base):
@@ -26,6 +28,7 @@ class Teacher(Base):
     tantou = Column(String(50))
     mail = Column(String(100))
     passwd = Column(String(64))
+    kougi = relationship("Kougi", back_populates = "teacher")
 
 class Kougi(Base):
     __tablename__ = 'kougis'
@@ -33,3 +36,5 @@ class Kougi(Base):
     name = Column(String(30))
     summary = Column(String(255))
     #これとteacherのidを結びつける必要がある
+    tantou_id = Column(Integer, ForeignKey('teachers.id'))
+    teacher = relationship("Teacher", back_populates = "kougi")
