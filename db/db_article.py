@@ -1,6 +1,6 @@
 from sqlalchemy.orm.session import Session
 from schemas import ArticleBase, ArticleCreate, StudentBase, StudentCreate
-from db.models import Article
+from db.models import Article, Student
 
 #エンドポイント@get作る必要がある
 #schema
@@ -44,7 +44,7 @@ def get_teacher_all(db: Session):
 def get_Kougi_all(db: Session):
     return db.query(Kougi).filter(Kougi.is_display == True).all()
 
-# 登録内容情報取得
+# 登録内容情報一件取得
 def get_article(db: Session, id: int):
     return db.query(Article).filter(Article.id == id).first()
 
